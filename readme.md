@@ -55,3 +55,4 @@ We want our email to sound legit and provide the user a valid reason to click th
 
 ## Viewing results
 As soon as a user clicks on the malicious email, an API reqeust is sent to our postman mock server. We can monitor that and see if we get any requests, which will provide us with the token.
+![](./assets/results.png)
